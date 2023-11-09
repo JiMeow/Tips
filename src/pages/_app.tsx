@@ -5,8 +5,10 @@ import { Itim } from "next/font/google";
 
 import "@/styles/globals.css";
 import DevViewport from "@/components/DevViewport";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const fonts = Itim({ weight: "400", subsets: ["latin", "thai"] });
+const queryClient = new QueryClient();
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,10 +16,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <main className={`${fonts.className}`}>
-        <Component {...pageProps} />
-        {process.env.NODE_ENV === "development" && <DevViewport />}
-      </main>
+      <QueryClientProvider client={queryClient}>
+        <main className={`${fonts.className}`}>
+          <Component {...pageProps} />
+          {process.env.NODE_ENV === "development" && <DevViewport />}
+        </main>
+      </QueryClientProvider>
     </SessionProvider>
   );
 };
