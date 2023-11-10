@@ -19,10 +19,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Tips For You</title>
-        <link rel="icon" href="/icon.ico" />
-      </Head>
       <Navbar />
       <div className="h-[100vh] w-[100vw] bg-[url('/images/room2.png')] bg-cover bg-center bg-no-repeat">
         <div className="flex h-full w-full flex-col-reverse items-center justify-center md:justify-normal">
