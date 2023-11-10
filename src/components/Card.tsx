@@ -26,7 +26,7 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
           className="mb-4 w-full resize-none overflow-auto rounded-lg p-4"
           value={content}
         />
-        <div className="flex h-full flex-row items-center justify-center gap-4">
+        <div className="flex flex-row items-center justify-center gap-4">
           <Switch
             approved={approved}
             rejected={rejected}
@@ -34,7 +34,7 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
             key={id + "approve" + approved + "reject" + rejected}
           />
           <div
-            className={`h-full rounded-lg border-2 border-red-900 bg-red-400 text-white duration-500 hover:bg-red-600 ${
+            className={`rounded-lg border-2 border-red-900 bg-red-400 text-white duration-500 hover:bg-red-600 ${
               isPending ? "animate-bounce" : ""
             }`}
           >

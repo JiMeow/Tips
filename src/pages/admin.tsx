@@ -4,6 +4,7 @@ import Tag from "@/components/Tag";
 import { useAllTips } from "@/hooks/useAllTips";
 import { type Tip } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Admin = () => {
   const [selectApproved, setSelectApproved] = useState(false);
@@ -11,6 +12,8 @@ const Admin = () => {
   const [selectPending, setSelectPending] = useState(true);
   const [tips, setTips] = useState([] as Tip[]);
   const { data: allTips, isSuccess } = useAllTips();
+
+  const [parent] = useAutoAnimate(/* optional config */);
 
   useEffect(() => {
     const tempTips = [];
@@ -38,6 +41,7 @@ const Admin = () => {
       <Navbar />
       <div className="flex h-[100vh] w-[100vw] items-center justify-center bg-[url('/images/room2.png')] bg-cover bg-center bg-no-repeat">
         <div
+          ref={parent}
           className="relative flex h-[80vh] max-h-[80vh] w-[90vw] max-w-[90vw] flex-row flex-wrap content-start
             items-start justify-center overflow-auto rounded-lg bg-slate-500 p-4 pt-16 sm:justify-normal
         "
