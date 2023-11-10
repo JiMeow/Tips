@@ -24,10 +24,12 @@ const Form = () => {
       <div className="h-[100vh] w-[100vw] bg-[url('/images/room2.png')] bg-cover bg-center bg-no-repeat">
         <div className="flex h-full w-full flex-col-reverse items-center justify-center ">
           <div className="flex w-[40vh] max-w-[90vw] flex-col  gap-4 rounded-lg bg-slate-500 px-4">
-            <div className="w-full pt-[2vh] text-center">Add Content Form</div>
+            <div className="w-full pt-[2vh] text-center text-base lg:text-lg">
+              Add Content Form
+            </div>
             <div className="flex flex-col gap-2">
-              <div className="flex w-full justify-center gap-1">
-                <div>Content</div>
+              <div className="flex w-full justify-center gap-1 text-base lg:text-lg">
+                <div className="">Content</div>
                 <div>
                   <span
                     className={`${
@@ -40,7 +42,7 @@ const Form = () => {
                 </div>
               </div>
               <textarea
-                className="h-20 w-full rounded-lg p-2 text-start"
+                className="h-24 w-full rounded-lg p-2 text-start text-base lg:h-28 lg:text-lg"
                 placeholder="รู้หรือไม่ว่าฉลามคือปลาชนิดเดียวที่สามารถกระพริบตาได้"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -49,7 +51,7 @@ const Form = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-              <div className="flex w-full justify-center gap-1">
+              <div className="flex w-full justify-center gap-1 text-base lg:text-lg">
                 <div>Writer</div>
                 <div>
                   <span
@@ -65,7 +67,7 @@ const Form = () => {
                 </div>
               </div>
               <input
-                className="h-10 w-full rounded-lg p-2 text-start"
+                className="h-10 w-full rounded-lg p-2 text-start text-base lg:text-lg"
                 placeholder="TUANG"
                 value={writerName}
                 onChange={(e) => setWriterName(e.target.value)}

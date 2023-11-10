@@ -8,7 +8,7 @@ import DevViewport from "@/components/DevViewport";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const fonts = Itim({ weight: "400", subsets: ["latin", "thai"] });
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
