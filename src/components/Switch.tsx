@@ -26,19 +26,39 @@ const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
         value={`${checked}`}
         className="peer sr-only"
       />
-      <div
-        className={`peer h-12 w-12  rotate-180 rounded-full ${getColor(
-          checked,
-          approved,
-          rejected,
-        )} shadow-md outline-none ring-0 duration-300
-        after:absolute after:left-1 after:top-1  after:flex after:h-10 after:w-10 after:-rotate-180 after:items-center after:justify-center after:rounded-full 
-      after:bg-gray-50 after:outline-none after:duration-500 after:content-['${
-        checked ? "✔️" : !approved && !rejected ? "🕒" : "❌"
-      }']
-      peer-checked:after:rotate-180
-      peer-hover:after:scale-75 peer-focus:outline-none`}
-      />
+      {checked && (
+        <div
+          className={`peer h-12 w-12  rotate-180 rounded-full ${getColor(
+            checked,
+            approved,
+            rejected,
+          )} shadow-md outline-none ring-0 duration-300
+        after:absolute after:left-1 after:top-1 after:flex after:h-10 after:w-10 after:-rotate-180 after:items-center after:justify-center after:rounded-full 
+      after:bg-gray-50 after:outline-none after:duration-500 after:content-['✔️'] peer-checked:after:rotate-180 peer-hover:after:scale-75 peer-focus:outline-none`}
+        />
+      )}
+      {!checked && !approved && !rejected && (
+        <div
+          className={`peer h-12 w-12  rotate-180 rounded-full ${getColor(
+            checked,
+            approved,
+            rejected,
+          )} shadow-md outline-none ring-0 duration-300
+        after:absolute after:left-1 after:top-1 after:flex after:h-10 after:w-10 after:-rotate-180 after:items-center after:justify-center after:rounded-full 
+      after:bg-gray-50 after:outline-none after:duration-500 after:content-['🕒'] peer-checked:after:rotate-180 peer-hover:after:scale-75 peer-focus:outline-none`}
+        />
+      )}
+      {!checked && !(!checked && !approved && !rejected) && (
+        <div
+          className={`peer h-12 w-12  rotate-180 rounded-full ${getColor(
+            checked,
+            approved,
+            rejected,
+          )} shadow-md outline-none ring-0 duration-300
+        after:absolute after:left-1 after:top-1 after:flex after:h-10 after:w-10 after:-rotate-180 after:items-center after:justify-center after:rounded-full 
+      after:bg-gray-50 after:outline-none after:duration-500 after:content-['❌'] peer-checked:after:rotate-180 peer-hover:after:scale-75 peer-focus:outline-none`}
+        />
+      )}
     </label>
   );
 };
