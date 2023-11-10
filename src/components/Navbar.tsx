@@ -23,7 +23,8 @@ const Navbar = () => {
     <nav className="absolute h-12 w-full bg-slate-600">
       <div className="flex h-full items-center justify-end gap-1">
         {pages.map((page) => {
-          if (page.path === "/admin" && pathname !== "/admin") return null;
+          const isAdmin = pathname.includes("/admin");
+          if (page.name === "Admin" && !isAdmin) return null;
           return (
             <Link
               key={page.name}
@@ -32,7 +33,7 @@ const Navbar = () => {
             z-100 group relative grid h-full cursor-pointer
             place-items-center overflow-hidden 
             rounded-md border border-red-500 px-4 text-sm   
-            ${pathname === page.path ? ` bg-red-600/80` : ` bg-red-300/80`}
+            ${"/admin" === page.path ? ` bg-red-600/80` : ` bg-red-300/80`}
                 `}
             >
               <span className="relative z-10 text-xl text-white duration-500">

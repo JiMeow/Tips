@@ -6,8 +6,10 @@ import { type Tip } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Loading from "@/components/Loading";
+import { useRouter } from "next/router";
 
 const Admin = () => {
+  const router = useRouter();
   const [selectApproved, setSelectApproved] = useState(false);
   const [selectRejected, setSelectRejected] = useState(false);
   const [selectPending, setSelectPending] = useState(true);
@@ -36,6 +38,8 @@ const Admin = () => {
     setTips(tempTips);
   }, [selectApproved, selectRejected, selectPending, allTips]);
 
+  const { username } = router.query;
+  if (username !== process.env.NEXT_PUBLIC_ADMIN_USERNAME) return <Loading />;
   if (!isSuccess) return <Loading />;
 
   return (
