@@ -9,7 +9,7 @@ type SwitchProps = {
 
 const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
   const [checked, setChecked] = useState(approved);
-  const { mutate: updateTip } = useUpdateTip({
+  const { mutate: updateTip, isPending } = useUpdateTip({
     onSuccess: () => {
       setChecked(!checked);
     },
@@ -19,6 +19,7 @@ const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
     <label className="relative inline-flex cursor-pointer items-center">
       <input
         onClick={() => {
+          if (isPending) return;
           updateTip({ id: id, approved: !checked, rejected: checked });
         }}
         type="checkbox"
