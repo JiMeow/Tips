@@ -5,13 +5,14 @@ import { useAllTips } from "@/hooks/useAllTips";
 import { type Tip } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Loading from "@/components/Loading";
 
 const Admin = () => {
   const [selectApproved, setSelectApproved] = useState(false);
   const [selectRejected, setSelectRejected] = useState(false);
   const [selectPending, setSelectPending] = useState(true);
   const [tips, setTips] = useState([] as Tip[]);
-  const { data: allTips } = useAllTips();
+  const { data: allTips, isSuccess } = useAllTips();
 
   const [parent] = useAutoAnimate();
 
@@ -34,6 +35,8 @@ const Admin = () => {
     }
     setTips(tempTips);
   }, [selectApproved, selectRejected, selectPending, allTips]);
+
+  if (!isSuccess) return <Loading />;
 
   return (
     <>

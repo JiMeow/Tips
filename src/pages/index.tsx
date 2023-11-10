@@ -3,10 +3,11 @@ import { useAllTips } from "@/hooks/useAllTips";
 import { useState } from "react";
 import { CaretDoubleRight } from "@phosphor-icons/react";
 import Image from "next/image";
+import Loading from "@/components/Loading";
 
 export default function Home() {
   const [showTipIndex, setShowTipIndex] = useState(-1);
-  const { data: allTips } = useAllTips();
+  const { data: allTips, isSuccess } = useAllTips();
 
   const tips = allTips?.filter((tip) => tip.approved && !tip.rejected) ?? [];
 
@@ -15,6 +16,7 @@ export default function Home() {
       ? tips[showTipIndex]
       : tips[Math.floor(Math.random() * tips.length)];
 
+  if (!isSuccess) return <Loading />;
   return (
     <>
       <Navbar />
