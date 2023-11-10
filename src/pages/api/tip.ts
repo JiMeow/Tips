@@ -1,4 +1,5 @@
 import { db } from "@/server/db";
+import { type UpdateTipsParams } from "@/server/service";
 import { type NextApiRequest, type NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
@@ -28,6 +29,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
     
             return res.status(201).json(tip);
+        } catch(err){
+            console.error(err);
+            return res.status(500).end();
+        }
+    }
+    else if (req.method === "PATCH")
+    {
+        try {
+            const { id, approved, rejected, content, writerName } = req.body as UpdateTipsParams;
+            if (!id) return res.status(400).end()
+            const tip = await db.tip.update({
+                where: {
+                    id
+                },
+                data: {
+                    approved,
+                    rejected,
+                    content,
+                    writerName
+                }
+            });
+            
+            return res.status(200).json(tip);
         } catch(err){
             console.error(err);
             return res.status(500).end();
