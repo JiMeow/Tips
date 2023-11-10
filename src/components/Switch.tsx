@@ -33,23 +33,15 @@ const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
           rejected,
         )} shadow-md outline-none ring-0 duration-300
         after:absolute after:left-1 after:top-1  after:flex after:h-10 after:w-10 after:-rotate-180 after:items-center after:justify-center after:rounded-full 
-      after:bg-gray-50 after:outline-none after:duration-500 after:content-['${getIcon(
-        checked,
-        approved,
-        rejected,
-      )}']
+      after:bg-gray-50 after:outline-none after:duration-500 after:content-['${
+        checked ? "✔️" : !approved && !rejected ? "🕒" : "❌"
+      }']
       peer-checked:after:rotate-180
       peer-hover:after:scale-75 peer-focus:outline-none`}
       />
     </label>
   );
 };
-
-function getIcon(checked: boolean, approved: boolean, rejected: boolean) {
-  if (checked) return "✔️";
-  if (!approved && !rejected) return "🕒";
-  return "❌";
-}
 
 function getColor(checked: boolean, approved: boolean, rejected: boolean) {
   if (checked) return "bg-green-400";
