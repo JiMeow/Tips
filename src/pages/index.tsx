@@ -65,11 +65,12 @@ export default function Home() {
                 ? randomTip?.writerName
                 : tips[showTipIndex]?.writerName}
             </div>
-            <CaretDoubleRight
-              size={24}
-              color="#ffffff"
-              weight="duotone"
-              className="absolute bottom-[-10vh] right-[45%] h-12 w-12 animate-bounce
+            {tips.length > 1 && (
+              <CaretDoubleRight
+                size={24}
+                color="#ffffff"
+                weight="duotone"
+                className="absolute bottom-[-10vh] right-[45%] h-12 w-12 animate-bounce
               hover:cursor-pointer
               sm:bottom-[-12vh] md:bottom-[1vw] md:right-[-96px] 
               md:h-16 md:w-16 lg:right-[-120px]
@@ -78,13 +79,14 @@ export default function Home() {
               2xl:h-28
               2xl:w-28
               "
-              onClick={() => {
-                let rand = Math.floor(Math.random() * (tips.length - 1)) + 1;
-                while (rand === showTipIndex)
-                  rand = Math.floor(Math.random() * (tips.length - 1)) + 1;
-                setShowTipIndex(rand);
-              }}
-            />
+                onClick={() => {
+                  let rand = Math.floor(Math.random() * tips.length);
+                  while (rand === showTipIndex)
+                    rand = Math.floor(Math.random() * tips.length);
+                  setShowTipIndex(rand);
+                }}
+              />
+            )}
           </div>
         </div>
       </div>

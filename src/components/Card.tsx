@@ -10,6 +10,8 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
     },
   });
 
+  const isStatusPending = !approved && !rejected;
+
   return (
     <div
       className="max-h-[50vh] w-[99%] p-4
@@ -41,15 +43,23 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
             <button
               onClick={() => {
                 if (isPending) return;
-                updateTip({
-                  id: id,
-                  approved: false,
-                  rejected: false,
-                });
+                if (isStatusPending) {
+                  updateTip({
+                    id: id,
+                    approved: false,
+                    rejected: true,
+                  });
+                } else {
+                  updateTip({
+                    id: id,
+                    approved: false,
+                    rejected: false,
+                  });
+                }
               }}
               className="m-2"
             >
-              {isPending ? "⏳" : "To Pending"}
+              {isPending ? "⏳" : isStatusPending ? "To Reject" : "To Pending"}
             </button>
           </div>
         </div>

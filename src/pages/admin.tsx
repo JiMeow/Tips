@@ -13,7 +13,7 @@ const Admin = () => {
   const [tips, setTips] = useState([] as Tip[]);
   const { data: allTips, isSuccess } = useAllTips();
 
-  const [parent] = useAutoAnimate(/* optional config */);
+  const [parent] = useAutoAnimate();
 
   useEffect(() => {
     const tempTips = [];
