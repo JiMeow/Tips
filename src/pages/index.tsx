@@ -2,15 +2,13 @@ import Navbar from "@/components/Navbar";
 import { useAllTips } from "@/hooks/useAllTips";
 import { useState } from "react";
 import { CaretDoubleRight } from "@phosphor-icons/react";
-import Head from "next/head";
 import Image from "next/image";
 
 export default function Home() {
   const [showTipIndex, setShowTipIndex] = useState(-1);
-  const { data: allTips, isSuccess } = useAllTips();
-  if (!isSuccess) return <div>Loading...</div>;
+  const { data: allTips } = useAllTips();
 
-  const tips = allTips.filter((tip) => tip.approved && !tip.rejected);
+  const tips = allTips?.filter((tip) => tip.approved && !tip.rejected) ?? [];
 
   const randomTip =
     showTipIndex != -1

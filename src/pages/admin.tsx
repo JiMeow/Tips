@@ -11,7 +11,7 @@ const Admin = () => {
   const [selectRejected, setSelectRejected] = useState(false);
   const [selectPending, setSelectPending] = useState(true);
   const [tips, setTips] = useState([] as Tip[]);
-  const { data: allTips, isSuccess } = useAllTips();
+  const { data: allTips } = useAllTips();
 
   const [parent] = useAutoAnimate();
 
@@ -35,7 +35,6 @@ const Admin = () => {
     setTips(tempTips);
   }, [selectApproved, selectRejected, selectPending, allTips]);
 
-  if (!isSuccess) return <div>Loading...</div>;
   return (
     <>
       <Navbar />

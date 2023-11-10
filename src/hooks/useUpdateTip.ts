@@ -1,14 +1,14 @@
 import { queryClient } from "@/pages/_app";
-import { createTips as createTip } from "@/server/service";
+import { updateTips } from "@/server/service";
 import { useMutation } from "@tanstack/react-query";
 
-type CreateTipsParams = {
+type UpdateTipParams = {
     onSuccess?: () => void;
 };
 
-export const useCreateTip = (params?: CreateTipsParams) => {
+export const useUpdateTip = (params?: UpdateTipParams) => {
     return useMutation({
-        mutationFn: createTip,
+        mutationFn: updateTips,
         onSuccess: () => {
             void queryClient.invalidateQueries({ queryKey: ['useAllTips'] })
             params?.onSuccess && params.onSuccess();

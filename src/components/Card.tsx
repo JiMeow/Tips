@@ -1,12 +1,20 @@
 import React from "react";
 import { type Tip } from "@prisma/client";
 import Switch from "./Switch";
-import { useUpdateTip } from "@/hooks/useUpdateTips";
+import { useUpdateTip } from "@/hooks/useUpdateTip";
+import { Trash } from "@phosphor-icons/react";
+import { useDeleteTip } from "@/hooks/useDeleteTip";
 
 const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
   const { mutate: updateTip, isPending } = useUpdateTip({
     onSuccess: () => {
       console.log("update success");
+    },
+  });
+
+  const { mutate: deleteTip, isPending: isDeletePending } = useDeleteTip({
+    onSuccess: () => {
+      console.log("delete success");
     },
   });
 
@@ -20,8 +28,20 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
     "
     >
       <div className="h-full rounded-lg bg-gray-400 p-4">
-        <div className="mb-4 text-center">
+        <div className="relative mb-4 text-center">
           status ({getStatus(approved, rejected)})
+          {!approved && (
+            <Trash
+              onClick={() => {
+                if (isDeletePending) return;
+                deleteTip({ id });
+              }}
+              size={28}
+              color="#934d4d"
+              weight="duotone"
+              className="absolute right-6 top-0 duration-500 hover:rotate-[360deg] hover:scale-125 hover:cursor-pointer hover:fill-current hover:text-green-600"
+            />
+          )}
         </div>
         <textarea
           disabled

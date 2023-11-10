@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import { useCreateTip } from "@/hooks/useCreateTips";
+import { useCreateTip } from "@/hooks/useCreateTip";
 import React, { useState } from "react";
 
 const Form = () => {

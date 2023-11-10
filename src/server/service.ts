@@ -36,3 +36,14 @@ export const updateTips = async (params : UpdateTipsParams) : Promise<UpdateTips
     const { data } = await axiosInstance.patch<UpdateTipsResponse>("/api/tip", params);
     return data
 }
+
+export type DeleteTipsParams = {
+    id: string;
+};
+
+export type DeleteTipsResponse = Tip;
+
+export const deleteTips = async (params : DeleteTipsParams) : Promise<DeleteTipsResponse> => {
+    const { data } = await axiosInstance.delete<DeleteTipsResponse>("/api/tip", { data: params });
+    return data
+}

@@ -1,4 +1,4 @@
-import { useUpdateTip } from "@/hooks/useUpdateTips";
+import { useUpdateTip } from "@/hooks/useUpdateTip";
 import React, { useState } from "react";
 
 type SwitchProps = {
