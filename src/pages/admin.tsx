@@ -45,6 +45,11 @@ const Admin = () => {
           {tips.map((tip) => (
             <Card key={tip.id} {...tip} />
           ))}
+          {tips.length === 0 && (
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-2xl text-black">
+              No Tips
+            </div>
+          )}
           <div className="absolute left-8 top-4 flex flex-row gap-4">
             <Tag
               name="Approved"
