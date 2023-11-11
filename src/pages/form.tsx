@@ -3,9 +3,9 @@ import { useCreateTip } from "@/hooks/useCreateTip";
 import React, { useState } from "react";
 
 const Form = () => {
-  const maxContent = 85;
+  const maxContent = 99;
   const maxWriterName = 30;
-  const maxContentAlert = 75;
+  const maxContentAlert = 85;
   const maxWriterNameAlert = 20;
 
   const [content, setContent] = useState("");

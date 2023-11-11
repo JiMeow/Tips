@@ -33,7 +33,11 @@ const Navbar = () => {
             z-100 group relative grid h-full cursor-pointer
             place-items-center overflow-hidden 
             rounded-md border border-red-500 px-4 text-sm   
-            ${"/admin" === page.path ? ` bg-red-600/80` : ` bg-red-300/80`}
+            ${
+              page.path === pathname || isAdmin
+                ? ` bg-red-600/80`
+                : ` bg-red-300/80`
+            }
                 `}
             >
               <span className="relative z-10 text-xl text-white duration-500">

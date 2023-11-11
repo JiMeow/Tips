@@ -5,7 +5,7 @@ const Loading = () => {
   return (
     <>
       <Navbar />
-      <div className="h-[100vh] w-[100vw] bg-[url('/images/room2.png')] bg-cover bg-center bg-no-repeat">
+      <div className="h-[100vh] w-[100vw] bg-[url('/images/room2.png')] bg-cover bg-center bg-no-repeat overflow-hidden">
         <div className="flex h-full w-full items-center justify-center md:justify-normal">
           <div className="flex w-full flex-col items-center justify-center gap-4">
             <div className="group flex h-80 w-80 -translate-y-24  -rotate-12 skew-x-0 scale-125 items-center justify-center duration-500 hover:origin-top-left hover:translate-x-6 hover:translate-y-12 hover:-rotate-0 hover:skew-x-1  hover:scale-100">
