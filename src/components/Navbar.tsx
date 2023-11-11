@@ -34,7 +34,7 @@ const Navbar = () => {
             place-items-center overflow-hidden 
             rounded-md border border-red-500 px-4 text-sm   
             ${
-              page.path === pathname || isAdmin
+              page.path === pathname || (page.name === "Admin" && isAdmin)
                 ? ` bg-red-600/80`
                 : ` bg-red-300/80`
             }

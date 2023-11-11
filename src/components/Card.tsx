@@ -5,7 +5,13 @@ import { useUpdateTip } from "@/hooks/useUpdateTip";
 import { Trash } from "@phosphor-icons/react";
 import { useDeleteTip } from "@/hooks/useDeleteTip";
 
-const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
+const Card: React.FC<Tip> = ({
+  id,
+  content,
+  approved,
+  rejected,
+  writerName,
+}) => {
   const { mutate: updateTip, isPending } = useUpdateTip({
     onSuccess: () => {
       console.log("update success");
@@ -45,9 +51,10 @@ const Card: React.FC<Tip> = ({ id, content, approved, rejected }) => {
         </div>
         <textarea
           disabled
-          className="mb-4 w-full resize-none overflow-auto rounded-lg p-4"
+          className=" w-full resize-none overflow-auto rounded-lg p-4"
           value={content}
         />
+        <div className="mb-4 text-right">{writerName}</div>
         <div className="flex flex-row items-center justify-center gap-4">
           <Switch
             approved={approved}
