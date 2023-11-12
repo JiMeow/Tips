@@ -47,13 +47,14 @@ async function getTips(req: NextApiRequest, res: NextApiResponse)
 async function createTips(req: NextApiRequest, res: NextApiResponse)
 {
     try {
-        const { content, writerName } = req.body as { content: string, writerName: string };
+        const { content, writerName, userId } = req.body as { content: string, writerName: string, userId?: string };
         if (!content || !writerName) return res.status(400).end()
 
         const tip = await db.tip.create({
             data: {
                 content,
-                writerName
+                writerName,
+                userId
             }
         });
 

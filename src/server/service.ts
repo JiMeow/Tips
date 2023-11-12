@@ -1,10 +1,12 @@
 import { axiosInstance } from "./axios"
 import { type Tip } from "@prisma/client";
 
+/// Tips
 
 type CreateTipsParams = {
     content: string;
     writerName: string;
+    userId?: string;
 };
 
 type CreateTipsResponse = Tip;
@@ -19,6 +21,17 @@ type GetTipsResponse = Tip[];
 
 export const getTips = async () : Promise<GetTipsResponse> => {
     const { data } = await axiosInstance.get<GetTipsResponse>("/api/tip");
+    return data
+}
+
+export type GetTipsByUserIdParams = {
+    userId: string;
+};
+
+export type GetTipsByUserIdResponse = Tip[];
+
+export const getTipsByUserId = async (params : GetTipsByUserIdParams) : Promise<GetTipsByUserIdResponse> => {
+    const { data } = await axiosInstance.get<GetTipsByUserIdResponse>(`/api/tip/${params.userId}`);
     return data
 }
 
@@ -48,6 +61,8 @@ export const deleteTips = async (params : DeleteTipsParams) : Promise<DeleteTips
     return data
 }
 
+/// Auth
+
 export type RegisterParams = {
     email: string;
     password: string;
@@ -61,5 +76,41 @@ export type RegisterResponse = {
 
 export const register = async (params : RegisterParams) : Promise<RegisterResponse> => {
     const { data } = await axiosInstance.post<RegisterResponse>("/api/register", params);
+    return data
+}
+
+export type ChangePasswordParams = {
+    username: string;
+    password: string;
+    newPassword: string;
+};
+
+export type ChangePasswordResponse = {
+    id: string;
+    email: string;
+    emailVerified: Date;
+    error?: string 
+};
+
+export const changePassword = async (params : ChangePasswordParams) : Promise<ChangePasswordResponse> => {
+    const { data } = await axiosInstance.post<ChangePasswordResponse>("/api/change/password", params);
+    return data
+}
+
+export type ChangeUsernameParams = {
+    username: string;
+    password: string;
+    newUsername: string;
+};
+
+export type ChangeUsernameResponse = {
+    id: string;
+    email: string;
+    emailVerified: Date;
+    error?: string 
+};
+
+export const changeUsername = async (params : ChangeUsernameParams) : Promise<ChangeUsernameResponse> => {
+    const { data } = await axiosInstance.post<ChangeUsernameResponse>("/api/change/username", params);
     return data
 }

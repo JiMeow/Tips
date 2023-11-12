@@ -5,9 +5,15 @@ type SwitchProps = {
   id: string;
   approved: boolean;
   rejected: boolean;
+  disable?: boolean;
 };
 
-const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
+const Switch: React.FC<SwitchProps> = ({
+  id,
+  approved,
+  rejected,
+  disable = false,
+}) => {
   const [checked, setChecked] = useState(approved);
   const { mutate: updateTip, isPending } = useUpdateTip({
     onSuccess: () => {
@@ -19,6 +25,7 @@ const Switch: React.FC<SwitchProps> = ({ id, approved, rejected }) => {
     <label className="relative inline-flex cursor-pointer items-center">
       <input
         onClick={() => {
+          if (disable) return;
           if (isPending) return;
           updateTip({ id: id, approved: !checked, rejected: checked });
         }}

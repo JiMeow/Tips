@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { useCreateTip } from "@/hooks/useCreateTip";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 
 const Form = () => {
@@ -10,6 +11,9 @@ const Form = () => {
 
   const [content, setContent] = useState("");
   const [writerName, setWriterName] = useState("");
+
+  const session = useSession();
+  const userId = session.data?.user.id;
 
   const { mutate: createTips } = useCreateTip({
     onSuccess: () => {
@@ -85,7 +89,7 @@ const Form = () => {
                   )
                     return;
                   if (content.length === 0 || writerName.length === 0) return;
-                  createTips({ content, writerName });
+                  createTips({ content, writerName, userId });
                 }}
               >
                 Submit

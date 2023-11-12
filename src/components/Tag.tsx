@@ -19,7 +19,7 @@ const Tag: React.FC<TagProps> = ({
       className={`h-full rounded-xl border-2 p-2 ${getColorTag(
         isSelect,
         type,
-      )}`}
+      )} duration-200 hover:scale-105 hover:cursor-pointer`}
     >
       <div>{name}</div>
     </div>
