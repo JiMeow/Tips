@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { type DefaultJWT } from "next-auth/jwt"
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -11,6 +12,8 @@ import { compare } from "bcrypt";
 
 import { env } from "@/env.mjs";
 import { db } from "@/server/db";
+import { type AdapterUser } from "next-auth/adapters";
+
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -22,17 +25,24 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: DefaultSession["user"] & {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      isAdmin: boolean;
     };
   }
-
   // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
+  //   id: string;
+  //   isAdmin: boolean;
   // }
 }
 
+declare module "next-auth/jwt" {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  interface JWT extends DefaultJWT {
+    user: AdapterUser & {
+      id: string;
+      isAdmin: boolean;
+    };
+  }
+}
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -41,13 +51,21 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, token }) =>{ 
+      session.user = token.user;
+
       return ({
       ...session,
       token,
     })},
+
     jwt: ({ token, user }) => {
+      const userTemp = user as AdapterUser & {
+        id: string;
+        isAdmin: boolean;
+      };
+
       if (user) {
-        token.id = user.id;
+        token.user = userTemp
       }
       return token;
     }
@@ -101,11 +119,6 @@ export const authOptions: NextAuthOptions = {
               throw new Error('Password is not set!')
           }
 
-          if (!user.isAdmin)
-          {
-              throw new Error('You are not admin!')
-          }
-
           const hasedPassword = user.hashedPassword ?? "";
           const isCorrectPassword = await compare(credentials.password, hasedPassword)
 
@@ -134,3 +147,4 @@ export const getServerAuthSession = (ctx: {
 }) => {
   return getServerSession(ctx.req, ctx.res, authOptions);
 };
+

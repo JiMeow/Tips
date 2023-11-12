@@ -15,14 +15,19 @@ const Login = () => {
         <div className="flex flex-col items-center rounded-lg border-2 border-gray-700 bg-slate-500 p-8">
           <div className="mb-4 text-xl">Login</div>
           <Input label="username" value={username} setValue={setUsername} />
-          <Input label="password" value={password} setValue={setPassword} />
+          <Input
+            label="password"
+            value={password}
+            setValue={setPassword}
+            type="password"
+          />
           <button
             className="mb-4 rounded-lg border-2 border-red-700 bg-red-400 p-2 duration-500 hover:cursor-pointer hover:bg-red-600"
             onClick={async () => {
               await signIn("credentials", {
                 email: username,
                 password,
-                callbackUrl: "/admin",
+                callbackUrl: "/",
               });
             }}
           >
@@ -33,7 +38,7 @@ const Login = () => {
             <span>
               <Link
                 href="/signup"
-                className="text-base text-red-500 underline underline-offset-2 hover:cursor-pointer "
+                className="text-base text-red-500 underline underline-offset-2 hover:cursor-pointer"
               >
                 here
               </Link>
