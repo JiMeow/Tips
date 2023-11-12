@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import Input from "@/components/Input";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,7 +30,16 @@ const Login = () => {
               await signIn("credentials", {
                 email: username,
                 password,
-                callbackUrl: "/",
+                redirect: false,
+              }).then((e) => {
+                const ok = e?.ok;
+                console.log(e);
+                const error = e?.error;
+                if (ok) {
+                  void router.push("/");
+                } else {
+                  alert(`${error}`);
+                }
               });
             }}
           >

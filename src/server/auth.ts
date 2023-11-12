@@ -111,19 +111,14 @@ export const authOptions: NextAuthOptions = {
           
           if (!user) 
           {
-              throw new Error('Email does not exist!')
-          }
-          
-          if (!user.hashedPassword)
-          {
-              throw new Error('Password is not set!')
+              throw new Error("username or password is incorrect")
           }
 
           const hasedPassword = user.hashedPassword ?? "";
           const isCorrectPassword = await compare(credentials.password, hasedPassword)
 
           if (!isCorrectPassword) {
-              throw new Error('Password is incorrect!')
+              throw new Error("username or password is incorrect")
           }
 
           return user;

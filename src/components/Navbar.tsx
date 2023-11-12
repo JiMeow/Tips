@@ -11,11 +11,24 @@ type PageType = {
   onClick?: () => void;
 };
 
-const pages: PageType[] = [
+const pagesDefault: PageType[] = [
   { name: "Home", path: "/", content: "Show Tips" },
   { name: "Form", path: "/form", content: "Add Content" },
-  { name: "Admin", path: "/admin", content: "Admin" },
   { name: "Login", path: "/login", content: "Login" },
+];
+
+const pagesAdmin: PageType[] = [
+  { name: "Admin", path: "/admin", content: "Admin" },
+];
+
+const pageLogin: PageType[] = [
+  { name: "Profile", path: "/profile", content: "Profile" },
+  {
+    name: "Signout",
+    path: "#",
+    content: "Signout",
+    onClick: () => void signOut({ callbackUrl: "/" }),
+  },
 ];
 
 const Navbar = () => {
@@ -44,13 +57,13 @@ const Navbar = () => {
             width: openNav ? "160px" : "0%",
           }}
         >
-          {pages.map((page) => {
-            if (page.name === "Admin" && !isAdmin) return null;
+          {pagesDefault.map((page) => {
             if (page.name === "Login" && isLogin) return null;
             return (
               <Link
                 key={page.name}
                 href={page.path}
+                onClick={page.onClick}
                 className={`
               group relative z-50 ml-4  grid
               cursor-pointer place-items-center 
@@ -58,9 +71,6 @@ const Navbar = () => {
               py-1
               ${
                 page.path === pathname ||
-                (page.name === "Admin" &&
-                  isAdmin &&
-                  pathname.includes("/admin")) ||
                 (page.name === "Login" && pathname === "/signup")
                   ? ` bg-red-600/80`
                   : ` bg-red-300/80`
@@ -75,43 +85,79 @@ const Navbar = () => {
               </Link>
             );
           })}
-          {isLogin && (
-            <button
-              key="signout"
-              onClick={async () => await signOut({ callbackUrl: "/" })}
-              className="
-          z-100 group relative ml-4 grid
-          cursor-pointer place-items-center 
-          overflow-hidden rounded-md border border-red-500 bg-red-300/80 px-4
-          py-1"
-            >
-              <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
-                Sign Out
-              </span>
-              <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
-              <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
-            </button>
-          )}
+          {isLogin &&
+            pageLogin.map((page) => {
+              return (
+                <Link
+                  key={page.name}
+                  href={page.path}
+                  onClick={page.onClick}
+                  className={`
+              group relative z-50 ml-4  grid
+              cursor-pointer place-items-center 
+              overflow-hidden rounded-md border border-red-500 px-4
+              py-1
+              ${
+                page.path === pathname ||
+                (page.name === "Login" && pathname === "/signup")
+                  ? ` bg-red-600/80`
+                  : ` bg-red-300/80`
+              }
+                  `}
+                >
+                  <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
+                    {page.content}
+                  </span>
+                  <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
+                  <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
+                </Link>
+              );
+            })}
+          {isAdmin &&
+            pagesAdmin.map((page) => {
+              return (
+                <Link
+                  key={page.name}
+                  href={page.path}
+                  onClick={page.onClick}
+                  className={`
+                    group relative z-50 ml-4  grid
+                    cursor-pointer place-items-center 
+                    overflow-hidden rounded-md border border-red-500 px-4
+                    py-1
+                    ${
+                      page.path === pathname
+                        ? ` bg-red-600/80`
+                        : ` bg-red-300/80`
+                    }
+                        `}
+                >
+                  <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
+                    {page.content}
+                  </span>
+                  <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
+                  <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
+                </Link>
+              );
+            })}
         </div>
       </nav>
       <nav className="absolute hidden h-12 w-full bg-slate-600 px-4 sm:block">
         <div className="flex h-full items-center justify-end gap-1 ">
-          {pages.map((page) => {
-            if (page.name === "Admin" && !isAdmin) return null;
+          {pagesDefault.map((page) => {
             if (page.name === "Login" && isLogin) return null;
             return (
               <Link
                 key={page.name}
                 href={page.path}
+                onClick={page.onClick}
                 className={`
-              group relative z-50 grid  cursor-pointer
-              place-items-center overflow-hidden 
-              rounded-md border border-red-500 px-4 py-1
+              group relative z-50 ml-4  grid
+              cursor-pointer place-items-center 
+              overflow-hidden rounded-md border border-red-500 px-4
+              py-1
               ${
                 page.path === pathname ||
-                (page.name === "Admin" &&
-                  isAdmin &&
-                  pathname.includes("/admin")) ||
                 (page.name === "Login" && pathname === "/signup")
                   ? ` bg-red-600/80`
                   : ` bg-red-300/80`
@@ -126,22 +172,61 @@ const Navbar = () => {
               </Link>
             );
           })}
-          {isLogin && (
-            <button
-              key="signout"
-              onClick={async () => await signOut({ callbackUrl: "/" })}
-              className="
-          z-100 group relative grid cursor-pointer
-          place-items-center overflow-hidden 
-          rounded-md border border-red-500 bg-red-300/80 px-4 py-1"
-            >
-              <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
-                Sign Out
-              </span>
-              <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
-              <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
-            </button>
-          )}
+          {isLogin &&
+            pageLogin.map((page) => {
+              return (
+                <Link
+                  key={page.name}
+                  href={page.path}
+                  onClick={page.onClick}
+                  className={`
+              group relative z-50 ml-4  grid
+              cursor-pointer place-items-center 
+              overflow-hidden rounded-md border border-red-500 px-4
+              py-1
+              ${
+                page.path === pathname ||
+                (page.name === "Login" && pathname === "/signup")
+                  ? ` bg-red-600/80`
+                  : ` bg-red-300/80`
+              }
+                  `}
+                >
+                  <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
+                    {page.content}
+                  </span>
+                  <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
+                  <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
+                </Link>
+              );
+            })}
+          {isAdmin &&
+            pagesAdmin.map((page) => {
+              return (
+                <Link
+                  key={page.name}
+                  href={page.path}
+                  onClick={page.onClick}
+                  className={`
+                    group relative z-50 ml-4  grid
+                    cursor-pointer place-items-center 
+                    overflow-hidden rounded-md border border-red-500 px-4
+                    py-1
+                    ${
+                      page.path === pathname
+                        ? ` bg-red-600/80`
+                        : ` bg-red-300/80`
+                    }
+                        `}
+                >
+                  <span className="relative z-10 text-sm text-white duration-500 md:text-xl">
+                    {page.content}
+                  </span>
+                  <span className="absolute -left-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:left-0 group-hover:rotate-0"></span>
+                  <span className="absolute -right-32 top-0 h-full w-full -rotate-45 bg-red-600 duration-500 group-hover:right-0 group-hover:rotate-0"></span>
+                </Link>
+              );
+            })}
         </div>
       </nav>
     </>
