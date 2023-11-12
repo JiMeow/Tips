@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import { useAllTips } from "@/hooks/useAllTips";
 import { useState } from "react";
-import { CaretDoubleRight } from "@phosphor-icons/react";
+import { CaretDoubleRight, PlusCircle } from "@phosphor-icons/react";
 import Image from "next/image";
 import Loading from "@/components/Loading";
+import Link from "next/link";
 
 export default function Home() {
   const [showTipIndex, setShowTipIndex] = useState(-1);
@@ -60,28 +61,41 @@ export default function Home() {
                 ? randomTip?.writerName
                 : tips[showTipIndex]?.writerName}
             </div>
-            {tips.length > 1 && (
-              <CaretDoubleRight
-                size={24}
-                color="#ffffff"
-                weight="duotone"
-                className="absolute bottom-[-10vh] right-[45%] h-12 w-12 animate-bounce
-              hover:cursor-pointer
-              sm:bottom-[-12vh] md:bottom-[1vw] md:right-[-96px] 
+            <div className="mt-8 flex flex-row justify-around sm:mt-14">
+              <Link href="/form" className="sm:hidden">
+                <PlusCircle
+                  size={24}
+                  color="#fafafa"
+                  weight="duotone"
+                  className="h-[12vw] w-[12vw]  hover:cursor-pointer
+                  sm:h-14 sm:w-14 md:absolute"
+                />
+                <div className="text-center text-gray-700">Add Tip</div>
+              </Link>
+              {tips.length > 1 && (
+                <CaretDoubleRight
+                  size={24}
+                  color="#ffffff"
+                  weight="duotone"
+                  className="bottom-[-10vh] right-[25%] h-[12vw] w-[12vw] animate-bounce
+              hover:cursor-pointer sm:bottom-[-12vh] 
+              sm:h-14 sm:w-14 md:absolute 
+              md:bottom-[1vw] md:right-[-96px]
               md:h-16 md:w-16 lg:right-[-120px]
               lg:h-20 lg:w-20 xl:right-[-144px]
               xl:h-24 xl:w-24 2xl:right-[-168px]
               2xl:h-28
               2xl:w-28
               "
-                onClick={() => {
-                  let rand = Math.floor(Math.random() * tips.length);
-                  while (rand === showTipIndex)
-                    rand = Math.floor(Math.random() * tips.length);
-                  setShowTipIndex(rand);
-                }}
-              />
-            )}
+                  onClick={() => {
+                    let rand = Math.floor(Math.random() * tips.length);
+                    while (rand === showTipIndex)
+                      rand = Math.floor(Math.random() * tips.length);
+                    setShowTipIndex(rand);
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

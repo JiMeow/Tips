@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({ value, setValue, label, type }) => {
               : "password"
             : type ?? "text"
         }
-        className="peer h-12 rounded-lg border-2 border-gray-700 bg-slate-500 p-1 pl-4"
+        className="peer h-12 rounded-lg border-2 border-gray-700 bg-slate-500 p-1 pl-4 "
         onChange={(e) => setValue(e.target.value)}
         value={value}
       ></input>
