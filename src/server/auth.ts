@@ -5,7 +5,9 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+
+import Credentials from "next-auth/providers/credentials";
+import { compare } from "bcrypt";
 
 import { env } from "@/env.mjs";
 import { db } from "@/server/db";
@@ -38,15 +40,22 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) =>{ 
+      return ({
       ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+      token,
+    })},
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    }
   },
   adapter: PrismaAdapter(db),
+  pages:{
+    signIn: '/login',
+  },
   providers: [
     /**
      * ...add more providers here.
@@ -57,7 +66,61 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+
+    Credentials({
+      name: "Credentials",
+      credentials: {
+          email: {
+              labal: "Email",
+              type: "text",
+          },
+          password: {
+              label: "Password",
+              type: "password",
+          }
+      },
+      async authorize(credentials) {
+          if (!credentials?.email || !credentials?.password) 
+          {
+              throw new Error('Email and password are required!')
+          }
+
+          const user = await db.user.findUnique({
+              where: {
+                  email: credentials.email
+              }
+          });
+          
+          if (!user) 
+          {
+              throw new Error('Email does not exist!')
+          }
+          
+          if (!user.hashedPassword)
+          {
+              throw new Error('Password is not set!')
+          }
+
+          if (!user.isAdmin)
+          {
+              throw new Error('You are not admin!')
+          }
+
+          const hasedPassword = user.hashedPassword ?? "";
+          const isCorrectPassword = await compare(credentials.password, hasedPassword)
+
+          if (!isCorrectPassword) {
+              throw new Error('Password is incorrect!')
+          }
+
+          return user;
+      }
+  })
   ],
+  session: {
+    strategy: "jwt",
+  },
+  secret: env.NEXTAUTH_SECRET,
 };
 
 /**

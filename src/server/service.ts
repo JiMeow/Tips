@@ -47,3 +47,19 @@ export const deleteTips = async (params : DeleteTipsParams) : Promise<DeleteTips
     const { data } = await axiosInstance.delete<DeleteTipsResponse>("/api/tip", { data: params });
     return data
 }
+
+export type RegisterParams = {
+    email: string;
+    password: string;
+};
+
+export type RegisterResponse = {
+    id: string;
+    email: string;
+    emailVerified: Date;
+};
+
+export const register = async (params : RegisterParams) : Promise<RegisterResponse> => {
+    const { data } = await axiosInstance.post<RegisterResponse>("/api/register", params);
+    return data
+}
