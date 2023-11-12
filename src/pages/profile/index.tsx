@@ -23,7 +23,7 @@ const Profile = () => {
           <div className="mb-4 text-xl">{`Hello ${username}`}</div>
           <div className="mb-4 text-xl">{`==== Tips ====`}</div>
           <div className="mb-4 flex flex-col self-start">
-            <Choice label="Show All Tips" hrefPath="/profile/tips">
+            <Choice label="Show Your Tips" hrefPath="/profile/tips">
               <MouseSimple
                 onMouseOver={() => setCursorHoverShowAllTips(true)}
                 onMouseLeave={() => setCursorHoverShowAllTips(false)}

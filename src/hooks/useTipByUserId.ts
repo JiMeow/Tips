@@ -9,6 +9,6 @@ export const useTipByUserId = (params: UseTipByUserIdParams) => {
     return useQuery({
         queryKey: ["useTipsByUserId"],
         queryFn: () => getTipsByUserId({userId: params.userId}),
-        // queryFn: getTipsByUserId,
+        refetchInterval: 10000,
     })
 };

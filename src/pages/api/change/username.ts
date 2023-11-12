@@ -20,8 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!existingUser) {
             return res.status(422).json({error: 'Email is not exists!'});
         }
-
-        
+ 
         const isCorrectPassword = await compare(password, existingUser.hashedPassword ?? "")
 
         if (!isCorrectPassword) {
