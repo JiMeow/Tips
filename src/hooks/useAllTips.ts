@@ -5,5 +5,6 @@ export const useAllTips = () => {
     return useQuery({
         queryKey: ["useAllTips"],
         queryFn: getTips,
+        refetchInterval: 10000,
     })
 };
