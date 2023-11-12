@@ -10,7 +10,7 @@ import { useTipByUserId } from "@/hooks/useTipByUserId";
 import BackButton from "@/components/BackButton";
 
 const ProfileTips = () => {
-  const [selectApproved, setSelectApproved] = useState(false);
+  const [selectApproved, setSelectApproved] = useState(true);
   const [selectRejected, setSelectRejected] = useState(false);
   const [selectPending, setSelectPending] = useState(true);
   const [tips, setTips] = useState([] as Tip[]);
