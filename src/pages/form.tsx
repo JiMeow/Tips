@@ -114,7 +114,11 @@ const Form = () => {
                   )
                     return;
                   if (content.length === 0) return;
-                  createTips({ content, writerName, userId });
+                  createTips({
+                    content,
+                    writerName: writerName.length === 0 ? "Anon" : writerName,
+                    userId,
+                  });
                 }}
               >
                 Submit
