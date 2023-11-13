@@ -75,7 +75,7 @@ const Form = () => {
               </div>
               <input
                 className="h-10 w-full rounded-lg p-2 text-start text-base lg:text-lg"
-                placeholder="TUANG"
+                placeholder="Anon"
                 value={writerName}
                 onChange={(e) => setWriterName(e.target.value)}
                 maxLength={maxWriterName}
