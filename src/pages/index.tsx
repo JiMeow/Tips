@@ -43,11 +43,11 @@ export default function Home() {
           >
             <div
               className="h-full w-full overflow-hidden break-normal
-              px-[10vw] text-[4.5vw]
+              px-[10vw] text-[4.4vw]
               leading-[14vw] sm:px-[6vw] sm:pt-[3vw] sm:text-[20px]
               sm:leading-[9.5vw] md:px-[5.5vw] md:pt-[3vw] md:text-[21px]
               md:leading-[8vw] lg:px-[5vw] lg:pt-[3vw] lg:text-[24px] 
-              lg:leading-[7.5vw]
+              lg:leading-[7.5vw] xl:text-[30px] 2xl:text-[36px]
               "
             >
               {showTipIndex === -1
