@@ -16,7 +16,7 @@ const ProfileTips = () => {
   const [tips, setTips] = useState([] as Tip[]);
 
   const session = useSession();
-  const userId = session.data?.user.id ?? "123";
+  const userId = session.data?.user.id ?? "";
 
   const { data: tipsByUserId, isSuccess } = useTipByUserId({
     userId,
