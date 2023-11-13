@@ -43,16 +43,18 @@ export default function Home() {
           >
             <div
               className="h-full w-full overflow-hidden break-normal
-              px-[10vw] text-[4.8vw]
-              leading-[14vw] sm:px-[6vw] sm:pt-[3vw] sm:text-[24px]
-              sm:leading-[9.5vw] md:px-[5.5vw] md:pt-[3vw] md:text-[28px]
-              md:leading-[8vw] lg:px-[5vw] lg:pt-[3vw] lg:text-[32px] 
+              px-[10vw] text-[4.5vw]
+              leading-[14vw] sm:px-[6vw] sm:pt-[3vw] sm:text-[20px]
+              sm:leading-[9.5vw] md:px-[5.5vw] md:pt-[3vw] md:text-[21px]
+              md:leading-[8vw] lg:px-[5vw] lg:pt-[3vw] lg:text-[24px] 
               lg:leading-[7.5vw]
               "
             >
-              {showTipIndex === -1
+              {/* {showTipIndex === -1
                 ? randomTip?.content
-                : tips[showTipIndex]?.content}
+                : tips[showTipIndex]?.content} */}
+              แกะมีความฉลาดมากกว่าที่เราคิด
+              โดยแกะมันจะสามารถจดจำใบหน้าคนได้มากถึง 50 คน
             </div>
             <div
               className="absolute bottom-[1vw] right-[1vw] overflow-hidden text-end text-[4.8vw] font-semibold sm:text-[24px] md:text-[28px]
