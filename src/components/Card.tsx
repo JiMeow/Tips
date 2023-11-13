@@ -93,7 +93,11 @@ const Card: React.FC<Tip & CardProps> = ({
             </div>
           )}
         </div>
-        <div className={`mb-4 flex flex-row ${"justify-between"} items-center`}>
+        <div
+          className={`${
+            disable ? "mb-4" : ""
+          } flex flex-row ${"justify-between"} items-center`}
+        >
           <button
             onClick={() => {
               if (isPending) return;
