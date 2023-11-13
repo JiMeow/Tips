@@ -29,9 +29,10 @@ export default function Home() {
               lg:mb-[5%] lg:w-[50%] xl:mb-0 xl:w-[50%]
               "
             src="/images/note.png"
-            alt="room"
+            alt="notepad"
             width={1920}
             height={1080}
+            priority
           ></Image>
           <div
             className="absolute mt-[20%] h-[55vw] w-[75%]
