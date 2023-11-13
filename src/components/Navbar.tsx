@@ -14,7 +14,14 @@ type PageType = {
 const pagesDefault: PageType[] = [
   { name: "Home", path: "/", content: "Show Tips" },
   { name: "Form", path: "/form", content: "Add Content" },
-  { name: "Login", path: "/login", content: "Login" },
+  {
+    name: "Login",
+    path: "/login",
+    content: "Login",
+    onClick: () => {
+      localStorage.removeItem("redirectLogin");
+    },
+  },
 ];
 
 const pagesAdmin: PageType[] = [

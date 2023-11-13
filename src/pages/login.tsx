@@ -33,10 +33,12 @@ const Login = () => {
                 redirect: false,
               }).then((e) => {
                 const ok = e?.ok;
-                console.log(e);
+                const redirectPath =
+                  localStorage.getItem("redirectLogin") ?? "/";
                 const error = e?.error;
                 if (ok) {
-                  void router.push("/");
+                  void router.push(redirectPath);
+                  localStorage.removeItem("redirectLogin");
                 } else {
                   alert(`${error}`);
                 }

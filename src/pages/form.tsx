@@ -88,7 +88,12 @@ const Form = () => {
               }`}
             >
               {!isLogin && (
-                <div className="text-sm">
+                <div
+                  className="text-sm"
+                  onClick={() => {
+                    localStorage.setItem("redirectLogin", "/form");
+                  }}
+                >
                   Login to store your tips,{" "}
                   <span>
                     <Link
