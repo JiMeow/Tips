@@ -113,7 +113,7 @@ const Form = () => {
                     writerName.length > maxWriterNameAlert
                   )
                     return;
-                  if (content.length === 0 || writerName.length === 0) return;
+                  if (content.length === 0) return;
                   createTips({ content, writerName, userId });
                 }}
               >
