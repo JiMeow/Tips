@@ -59,7 +59,7 @@ const ProfileTips = () => {
         >
           <BackButton />
           {tips.map((tip) => (
-            <Card key={tip.id} {...tip} disable />
+            <Card key={tip.id} {...tip} disable editable />
           ))}
           {tips.length === 0 && (
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-2xl text-black">

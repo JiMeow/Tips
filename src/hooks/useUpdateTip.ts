@@ -11,6 +11,7 @@ export const useUpdateTip = (params?: UpdateTipParams) => {
         mutationFn: updateTips,
         onSuccess: () => {
             void queryClient.invalidateQueries({ queryKey: ['useAllTips'] })
+            void queryClient.invalidateQueries({ queryKey: ['useTipsByUserId'] })
             params?.onSuccess && params.onSuccess();
         },
     })

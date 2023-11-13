@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { type Tip } from "@prisma/client";
 import Switch from "./Switch";
 import { useUpdateTip } from "@/hooks/useUpdateTip";
-import { Trash } from "@phosphor-icons/react";
+import { NotePencil, Trash } from "@phosphor-icons/react";
 import { useDeleteTip } from "@/hooks/useDeleteTip";
 
 type CardProps = {
   disable?: boolean;
+  editable?: boolean;
 };
 
 const Card: React.FC<Tip & CardProps> = ({
@@ -16,10 +17,12 @@ const Card: React.FC<Tip & CardProps> = ({
   rejected,
   writerName,
   disable = false,
+  editable = false,
 }) => {
   const { mutate: updateTip, isPending } = useUpdateTip({
     onSuccess: () => {
-      console.log("update success");
+      if (!editable) return;
+      setEditable(false);
     },
   });
 
@@ -28,6 +31,10 @@ const Card: React.FC<Tip & CardProps> = ({
       console.log("delete success");
     },
   });
+
+  const [isEdit, setEditable] = useState(false);
+  const [editedContent, setEditedContent] = useState(content);
+  const [editedUsername, setEditedUsername] = useState(writerName);
 
   const isStatusPending = !approved && !rejected;
 
@@ -41,25 +48,95 @@ const Card: React.FC<Tip & CardProps> = ({
       <div className="h-full rounded-lg bg-gray-400 p-4">
         <div className="relative mb-4 text-center">
           status ({getStatus(approved, rejected)})
-          {!disable && !approved && (
-            <Trash
+          <Trash
+            onClick={() => {
+              if (isDeletePending) return;
+              deleteTip({ id });
+            }}
+            size={28}
+            color="#934d4d"
+            weight="duotone"
+            className="absolute right-6 top-0 duration-500 hover:rotate-[360deg] hover:scale-125 hover:cursor-pointer hover:fill-current hover:text-green-600"
+          />
+          {editable && (
+            <NotePencil
               onClick={() => {
-                if (isDeletePending) return;
-                deleteTip({ id });
+                setEditable(!isEdit);
+                setEditedContent(content);
+                setEditedUsername(writerName);
               }}
               size={28}
               color="#934d4d"
               weight="duotone"
-              className="absolute right-6 top-0 duration-500 hover:rotate-[360deg] hover:scale-125 hover:cursor-pointer hover:fill-current hover:text-green-600"
+              className="absolute left-6 top-0 duration-500 hover:rotate-[360deg] hover:scale-125 hover:cursor-pointer hover:fill-current hover:text-green-600"
             />
           )}
         </div>
-        <textarea
-          disabled
-          className=" w-full resize-none overflow-auto rounded-lg p-4"
-          value={content}
-        />
-        <div className="mb-4 text-right">{writerName}</div>
+        <div className="relative">
+          <textarea
+            disabled={!isEdit}
+            className="w-full resize-none overflow-auto rounded-lg p-4"
+            value={editedContent}
+            maxLength={99}
+            onChange={(e) => {
+              setEditedContent(e.target.value);
+            }}
+          />
+          {isEdit && (
+            <div className="absolute bottom-1 right-6">
+              <span
+                className={`${editedContent.length > 85 ? "text-red-500" : ""}`}
+              >
+                {editedContent.length}
+              </span>
+              /85
+            </div>
+          )}
+        </div>
+        <div className={`mb-4 flex flex-row ${"justify-between"} items-center`}>
+          <button
+            onClick={() => {
+              if (isPending) return;
+              if (editedContent.length > 85) {
+                alert("Content too long");
+                return;
+              }
+              if (editedUsername.length > 20) {
+                alert("Username too long");
+                return;
+              }
+              if (editedContent === content && editedUsername === writerName) {
+                alert("No changes made");
+                return;
+              }
+              updateTip({
+                id: id,
+                content: editedContent,
+                approved: false,
+                rejected: false,
+                writerName: editedUsername,
+              });
+            }}
+            className="overflow-hidden text-black hover:text-red-600"
+            style={{
+              width: isEdit ? "56px" : "0px",
+              transition: "width 0.5s, color 0.2s",
+            }}
+          >
+            <div className="">{isPending ? "Pending..." : "Submit"}</div>
+          </button>
+          <textarea
+            maxLength={20}
+            disabled={!isEdit}
+            className={`w-25 h-7 resize-none rounded-lg pr-2
+             ${!isEdit ? "bg-gray-400 " : " "} text-right `}
+            value={editedUsername}
+            onChange={(e) => {
+              setEditedUsername(e.target.value);
+            }}
+          />
+        </div>
+
         {!disable && (
           <div className="flex flex-row items-center justify-center gap-4">
             <Switch
