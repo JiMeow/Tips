@@ -50,11 +50,9 @@ export default function Home() {
               lg:leading-[7.5vw]
               "
             >
-              {/* {showTipIndex === -1
+              {showTipIndex === -1
                 ? randomTip?.content
-                : tips[showTipIndex]?.content} */}
-              แกะมีความฉลาดมากกว่าที่เราคิด
-              โดยแกะมันจะสามารถจดจำใบหน้าคนได้มากถึง 50 คน
+                : tips[showTipIndex]?.content}
             </div>
             <div
               className="absolute bottom-[1vw] right-[1vw] overflow-hidden text-end text-[4.8vw] font-semibold sm:text-[24px] md:text-[28px]
