@@ -54,10 +54,10 @@ const Navbar = () => {
           color="#5c0000"
           weight="bold"
           onClick={() => setOpenNav((prev) => !prev)}
-          className="z-10 duration-200 hover:scale-125 hover:cursor-pointer"
+          className="z-20 duration-200 hover:scale-125 hover:cursor-pointer"
         />
         <div
-          className="absolute right-[-16px] top-[-16px] -z-10 flex h-screen flex-col  items-start
+          className="absolute right-[-16px] top-[-16px] z-10 flex h-screen flex-col  items-start
             gap-4 overflow-hidden bg-slate-600/90 pt-24 transition-all duration-500
           "
           style={{
