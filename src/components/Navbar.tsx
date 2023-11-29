@@ -57,7 +57,7 @@ const Navbar = () => {
           className="z-20 duration-200 hover:scale-125 hover:cursor-pointer"
         />
         <div
-          className="absolute right-[-16px] top-[-16px] z-10 flex h-screen flex-col  items-start
+          className="absolute right-[-16px] top-[-16px] z-[-1] flex h-screen flex-col  items-start
             gap-4 overflow-hidden bg-slate-600/90 pt-24 transition-all duration-500
           "
           style={{
@@ -72,7 +72,7 @@ const Navbar = () => {
                 href={page.path}
                 onClick={page.onClick}
                 className={`
-              group relative z-50 ml-4  grid
+              group relative z-0 ml-4  grid
               cursor-pointer place-items-center 
               overflow-hidden rounded-md border border-red-500 px-4
               py-1
@@ -100,7 +100,7 @@ const Navbar = () => {
                   href={page.path}
                   onClick={page.onClick}
                   className={`
-              group relative z-50 ml-4  grid
+              group relative z-0 ml-4  grid
               cursor-pointer place-items-center 
               overflow-hidden rounded-md border border-red-500 px-4
               py-1
